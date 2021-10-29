@@ -1,0 +1,20 @@
+<div class="col-sm-12">
+  <app-card cardTitle="gallary" [options]="false">
+    <div class="row">
+      <div class="col-sm-3" *ngFor="let image of albums; let i=index">
+        <div class="column has-text-centered">
+          <div class="img-row">
+            <app-card [cardTitle]='username(image)' [options]="false">
+              <h6>no.{{i+1}}</h6>
+              <img class="img-frame" style="width: 80%;" src="../../../../assets/images/gallery-grid/masonry-2.jpg" (click)="open(image.id)" />
+              <div>
+                <h6>{{image.title}}</h6>
+              </div>
+            </app-card>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-card>
+</div>

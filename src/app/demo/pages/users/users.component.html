@@ -1,0 +1,157 @@
+<div class="row btn-page">
+  <div class="col-sm-12">
+    <app-card cardTitle="Parents List" cardClass="card-datatable" [options]="false">
+
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>country</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul *ngFor="let contry of contrys">
+                <li>
+                  <button ngbDropdownItem (click)="stats(contry.id)">{{contry.name}} ({{contry.phonecode}})</button>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic3" ngbDropdownToggle>stats</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+              <ul>
+                <li *ngFor="let stats of statss">
+                  <button ngbDropdownItem (click)="city(stats.id)">{{stats.name}}</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>city</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+              <ul>
+                <li *ngFor="let city of citys">
+                  <button ngbDropdownItem>{{city.name}}</button>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center m-l-0">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6 text-right">
+          <button class="btn btn-success btn-sm btn-round has-ripple" (click)="modalParents.show()"><i
+              class="feather icon-plus"></i> Add post</button>
+          <!-- <button class="btn btn-success btn-sm btn-round has-ripple" (click)="contry()"><i
+              class="feather icon-plus"></i></button> -->
+        </div>
+        <app-ui-modal #modalParents [dialogClass]="'btn-page'">
+          <div class="app-modal-header">
+            <h5 class="modal-title">Add</h5>
+            <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+              (click)="modalParents.hide()"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="app-modal-body">
+            <form #form="ngForm">
+
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" ngModel name="first_name" placeholder="First Name">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" ngModel name="last_name" placeholder="Last Name">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group fill">
+                    <input type="email" class="form-control" ngModel name="email" placeholder="Email">
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group fill">
+                    <label class="floating-label" for="Icon">Profie Image</label>
+                    <input type="file" (change)="uplode($event)" class="form-control" ngModel name="avatar"
+                      placeholder="sdf">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" ngModel name="status" placeholder="Status">
+                  </div>
+                </div>
+              </div>
+              <div class="app-modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                  (click)="modalParents.hide()">Clear</button>
+                <button class="btn btn-primary event-btn m-2" type="button" (click)="addUsers(form.value,modalParents)">
+                  <span *ngIf="this.submit" class="spinner-border spinner-border-sm" role="status"></span>
+                  <span *ngIf="this.submit" class="load-text"> adding...</span>
+                  <span *ngIf="!this.submit" class="btn-text">Submit</span>
+                </button>
+                <!-- <button type="submit" (click)="addUsers(form.value,modalParents)"
+                  class="btn btn-primary">Submit</button> -->
+              </div>
+            </form>
+          </div>
+        </app-ui-modal>
+      </div>
+      <div class=" dt-responsive table-responsive">
+        <table datatable id="report-table" class="table table-bordered table-striped mb-0">
+          <span *ngIf="this.btnLoader" class="spinner-border " role="status"></span>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>image</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Email</th>
+              <th>Edit</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let user of userList;let i = index ">
+            <tr>
+              <td>{{i+1}}</td>
+              <td>
+                <div class="d-inline-block align-middle">
+                  <img src="{{user.avatar}}" alt="user image" class="img-radius align-top m-r-15"
+                    style="width:40px; height: 40px;">
+                </div>
+              </td>
+
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                <button type="button" class="btn btn-icon btn-success"><i
+                    class="feather icon-check-circle"></i></button>
+              </td>
+              <td>
+                <!-- <button class="btn btn-icon btn-danger event-btn "  (click)="removeUser(user.key)">
+                  <span *ngIf="this.btnLoader" class="spinner-border spinner-border-sm" role="status"></span>
+                  <span *ngIf="!this.btnLoader"><i  class="feather icon-trash-2"></i></span>
+                  
+                </button> -->
+                <button type="button" (click)="removeUser(user.key)" class="btn btn-icon btn-danger"><i
+                    class="feather icon-trash-2"></i></button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="my-auto">
+        <button type="button" (click)="page1()" class="btn btn-icon btn-success">1</button>
+        <button type="button" (click)="page2()" class="btn btn-icon btn-danger">2</button>
+      </div> -->
+    </app-card>
+  </div>
+</div>

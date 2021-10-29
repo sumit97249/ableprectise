@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="col-md-8 order-md-2">
+    <h1>{{exampale | upercass}}</h1>
+    <app-ui-modal #modalParents [dialogClass]="'modal-xl btn-page'">
+      <div class="app-modal-header">
+        <h5 class="modal-title">Add Parents</h5>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="modalParents.hide()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="app-modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="Name" placeholder="Guardian Name">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group fill">
+              <input type="email" class="form-control" id="Email" placeholder="Email">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group fill">
+              <input type="password" class="form-control" id="Password" placeholder="Password">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="Rollno" placeholder="Children roll number">
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <textarea class="form-control" id="Address" rows="3" placeholder="Address"></textarea>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <select class="form-control" id="Sex">
+                <option value="">Select Sex</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group fill">
+              <label class="floating-label" for="Icon">Profie Image</label>
+              <input type="file" class="form-control" id="Icon" placeholder="sdf">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="Occupation" placeholder="Occupation">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="Age" placeholder="Age">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="modalParents.hide()">Clear</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </app-ui-modal>
+    <app-card cardTitle="Message" cardClass="new-cust-card" blockClass="p-0 scrollable-body">
+      <perfect-scrollbar [style.max-height]="'415px'" [style.padding-top]="0">
+        <div class="align-middle m-b-25" *ngFor="let user of users">
+          <img src="assets/images/user/no-profile.png" alt="user image" class="img-radius align-top m-r-15">
+          <div class="d-inline-block">
+            <a href="javascript:">
+              <h6>{{user.name}}</h6>
+            </a>
+            <p class="m-b-0">{{user.username}}</p>
+            <span class="status active"></span>
+          </div>
+        </div>
+
+      </perfect-scrollbar>
+    </app-card>
+  </div>
+  <div class="col-md-4 order-md-1">
+
+    <div class="merge-card" *ngFor="let post of posts;let i = index">
+      <app-card [cardTitle]="getPostUsername(post)" cardCaption="50 minutes ago - posted on your timeline"
+        captionClass="mb-0 text-muted" cardClass="mb-0" blockClass="p-0">
+        <a href="javascript:"><img src="{{post.avatar}}" alt="" class="img-fluid"></a>
+      </app-card>
+      <app-card [hidHeader]="true" cardClass="mb-0">
+        <a href="javascript:" class="text-h-primary">
+          <!-- <h6>{{post.first_name}}</h6> -->
+        </a>
+        <p class="text-muted mb-0">{{i}}</p>
+      </app-card>
+      <app-card [hidHeader]="true" cardClass="mb-0" blockClass="border-top border-bottom">
+        <ul class="list-inline m-0">
+          <li class="list-inline-item"><a href="javascript:" class="text-danger text-h-danger"><i
+                class="feather icon-heart-on mr-2"></i>Like</a></li>
+          <li class="list-inline-item"><a href="javascript:" class="text-muted text-h-primary"><i
+                class="feather icon-message-square mr-2"></i>Comment</a></li>
+          <li class="list-inline-item"><a href="javascript:" class="text-muted text-h-primary"><i
+                class="feather icon-share-2 mr-2"></i>Share</a></li>
+        </ul>
+      </app-card>
+      <app-card [hidHeader]="true">
+        <div class="row justify-content-between mb-4">
+          <!-- <div class="col-auto"><a href="javascript:" class="text-muted text-h-primary">Comment
+              ({{post.comments}})</a></div> -->
+          <div class="col-auto"><a href="javascript:" class="text-muted text-h-primary">See All</a></div>
+        </div>
+        <div class="media mb-0" *ngFor="let comment of post.comments;let i = index">
+          <ng-container>
+            <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-30 align-top m-r-15">
+            <div class="media-body">
+              <a href="javascript:">
+                <h6 class="mb-0 text-h-primary">{{comment.name}}</h6>
+              </a>
+              <p class="m-b-0">{{comment.body}}
+                <!-- <a href="javascript:" class="text-muted text-h-danger ml-1"><small>Like</small></a>
+                    <a href="javascript:" class="text-muted text-h-primary ml-1"><small>Comment</small></a> -->
+              </p>
+            </div>
+          </ng-container>
+        </div>
+        <hr>
+        <div class="media mb-0">
+          <img src="assets/images/user/avatar-1.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+          <div class="media-body">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control form-control border-0 shadow-none px-0"
+                placeholder="Write comment hear !. . .">
+              <div class="input-group-append">
+                <button class="btn  btn-primary" type="button"><i class="feather icon-message-circle"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</div>
